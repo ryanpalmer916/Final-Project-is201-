@@ -1,0 +1,185 @@
+/* Custom CSS for scratch.html - IS 201 Final Project */
+
+/* Body styling with custom background */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    background-image: url('https://img.freepik.com/free-vector/baseball-field-background-flat-design_23-2147915818.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styling */
+header {
+    background-color: #fd5a1e; /* Giants orange */
+    color: #000;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-bottom: 5px solid #000;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header nav {
+    margin-top: 15px;
+}
+
+header nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* Main content div styling */
+.main-content {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* History section div styling */
+.history-section {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.history-section h2 {
+    color: #fd5a1e; /* Giants orange */
+    border-bottom: 2px solid #fd5a1e;
+    padding-bottom: 10px;
+}
+
+.history-section h3 {
+    color: #fd5a1e; /* Giants orange */
+}
+
+.history-section ul {
+    list-style-type: square;
+}
+
+/* Video section div styling */
+.video-section {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.video-section iframe {
+    max-width: 100%;
+    border: 3px solid #fd5a1e;
+    border-radius: 5px;
+}
+
+/* Standings section div styling */
+.standings-section {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.standings-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.standings-section th, .standings-section td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.standings-section th {
+    background-color: #fd5a1e;
+    color: white;
+}
+
+.standings-section tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.standings-section tr:hover {
+    background-color: #ddd;
+}
+
+/* Tableau section div styling */
+.tableau-section {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Team logo styling */
+.team-logo {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer styling */
+footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+footer a {
+    color: #fd5a1e;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Links styling */
+a {
+    color: #fd5a1e;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #000;
+    text-decoration: underline;
+}

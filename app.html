@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLB Team Info App</title>
+    <style>
+        /* Embedded CSS */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #fd5a1e; /* Giants orange */
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-bottom: 5px solid #000;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .app-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+
+        .input-group button {
+            padding: 10px 20px;
+            background-color: #fd5a1e;
+            color: #fff;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .input-group button:hover {
+            background-color: #e04e1c;
+        }
+
+        .response-container {
+            background-color: #f9f9f9;
+            border-left: 5px solid #fd5a1e;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            min-height: 100px;
+            display: none;
+        }
+
+        .team-info {
+            margin-top: 10px;
+        }
+
+        .team-name {
+            font-weight: bold;
+            color: #fd5a1e;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .input-group {
+                flex-direction: column;
+            }
+
+            .input-group input {
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .input-group button {
+                border-radius: 5px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MLB Team Info App</h1>
+        <nav>
+            <a href="index.html">Home</a> | 
+            <a href="scratch.html">Back to SF Giants</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="app-container">
+            <h2>Get MLB Team Information</h2>
+            <p>Enter the name of any MLB team to get information about them:</p>
+            
+            <div class="input-group">
+                <input type="text" id="teamInput" placeholder="e.g., Giants, Yankees, Dodgers..." aria-label="Enter MLB team name">
+                <button id="submitBtn">Get Info</button>
+            </div>
+            
+            <div id="responseContainer" class="response-container">
+                <div class="team-info">
+                    <div id="teamName" class="team-name"></div>
+                    <div id="teamDescription"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Created for IS 201 Final Project by Ryan Palmer</p>
+    </footer>
+
+    <script>
+        // MLB Team Information Database
+        const teamInfo = {
+            "giants": {
+                name: "San Francisco Giants",
+                description: "The Giants are a legendary franchise with a rich history dating back to 1883. Based in San Francisco since 1958, they've won 8 World Series championships and feature iconic players like Willie Mays and Barry Bonds. Oracle Park is known as one of the most beautiful ballparks in baseball, featuring stunning views of San Francisco Bay."
+            },
+            "dodgers": {
+                name: "Los Angeles Dodgers",
+                description: "The Dodgers are one of baseball's most storied franchises with a passionate fanbase. Originally from Brooklyn, they moved to Los Angeles in 1958 and have won 7 World Series titles. Dodger Stadium is the third-oldest ballpark in MLB and regularly leads the league in attendance."
+            },
+            "yankees": {
+                name: "New York Yankees",
+                description: "The Yankees are baseball's most successful franchise with 27 World Series championships. Based in the Bronx, they're known for their iconic pinstripe uniforms and legendary players like Babe Ruth, Lou Gehrig, Joe DiMaggio, and Derek Jeter. The Yankees have a global fanbase and are one of sports' most valuable franchises."
+            },
+            "red sox": {
+                name: "Boston Red Sox",
+                description: "The Red Sox are one of baseball's oldest and most beloved teams. Playing at historic Fenway Park since 1912, they've won 9 World Series titles. The team has a passionate fanbase and a storied rivalry with the New York Yankees that dates back over a century."
+            },
+            "cubs": {
+                name: "Chicago Cubs",
+                description: "The Cubs are one of baseball's oldest franchises, playing at historic Wrigley Field since 1916. They famously broke a 108-year championship drought by winning the World Series in 2016. The Cubs have one of baseball's most loyal fanbases despite decades of heartbreak."
+            },
+            "cardinals": {
+                name: "St. Louis Cardinals",
+                description: "The Cardinals are one of baseball's most successful franchises with 11 World Series championships. Known for their consistent excellence and 'Cardinal Way' of developing players, they have a devoted fanbase throughout the Midwest. Busch Stadium is regularly packed with fans wearing the team's signature red."
+            },
+            "braves": {
+                name: "Atlanta Braves",
+                description: "The Braves are one of baseball's oldest continuous franchises, dating back to 1871. They've won 4 World Series titles, including their most recent in 2021. The team has a strong fanbase throughout the southeastern United States and plays at Truist Park in Atlanta."
+            },
+            "astros": {
+                name: "Houston Astros",
+                description: "The Astros joined MLB as an expansion team in 1962. They've won 2 World Series championships and have become one of baseball's most successful franchises in recent years. The team plays at Minute Maid Park in downtown Houston and has a strong analytics-focused approach to the game."
+            },
+            "mets": {
+                name: "New York Mets",
+                description: "The Mets joined MLB as an expansion team in 1962. They've won 2 World Series titles and have a passionate fanbase in the New York metropolitan area. The team plays at Citi Field in Queens and has a rich history of both heartbreak and triumph."
+            },
+            "phillies": {
+                name: "Philadelphia Phillies",
+                description: "The Phillies are the oldest continuous, one-name, one-city franchise in American professional sports. Founded in 1883, they've won 2 World Series championships. The team plays at Citizens Bank Park and has a passionate, sometimes demanding fanbase in Philadelphia."
+            }
+        };
+
+        // Default responses for teams not in the database
+        const defaultResponses = [
+            "This team has a rich history and passionate fanbase that spans generations.",
+            "Known for their distinctive uniforms and home stadium atmosphere, this team has left its mark on baseball history.",
+            "With dedicated fans and a commitment to excellence, this team continues to be an important part of MLB.",
+            "This franchise has contributed many memorable moments to baseball history and maintains a loyal following.",
+            "With a mix of veteran leadership and young talent, this team is always working to bring championship baseball to their fans."
+        ];
+
+        // Event listener for the submit button
+        document.getElementById('submitBtn').addEventListener('click', getTeamInfo);
+
+        // Event listener for Enter key in the input field
+        document.getElementById('teamInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                getTeamInfo();
+            }
+        });
+
+        // Function to get and display team information
+        function getTeamInfo() {
+            // Get the input value and convert to lowercase for matching
+            const teamInput = document.getElementById('teamInput').value.trim().toLowerCase();
+            const responseContainer = document.getElementById('responseContainer');
+            const teamNameElement = document.getElementById('teamName');
+            const teamDescriptionElement = document.getElementById('teamDescription');
+            
+            // Show the response container
+            responseContainer.style.display = 'block';
+            
+            // Check if input is empty
+            if (teamInput === '') {
+                teamNameElement.textContent = 'Please enter a team name';
+                teamDescriptionElement.textContent = '';
+                return;
+            }
+            
+            // Find the team in our database
+            let found = false;
+            for (const key in teamInfo) {
+                if (teamInput.includes(key) || key.includes(teamInput)) {
+                    teamNameElement.textContent = teamInfo[key].name;
+                    teamDescriptionElement.textContent = teamInfo[key].description;
+                    found = true;
+                    break;
+                }
+            }
+            
+            // If team not found, provide a generic response
+            if (!found) {
+                // Capitalize the first letter of each word in the input
+                const formattedTeamName = teamInput.split(' ')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+                
+                teamNameElement.textContent = formattedTeamName;
+                
+                // Get a random default response
+                const randomIndex = Math.floor(Math.random() * defaultResponses.length);
+                teamDescriptionElement.textContent = defaultResponses[randomIndex];
+            }
+        }
+    </script>
+</body>
+</html>
